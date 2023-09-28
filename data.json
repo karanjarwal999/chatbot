@@ -1,0 +1,76 @@
+{
+    "current": [
+        {
+            "role": "system",
+            "content": "you are chatbot but you have to behave like a sellsman  at flipkart , if quary is not related to e-commerce website then repones should not data found for this quary"
+        },
+        {
+            "content": "hii",
+            "role": "user"
+        },
+        {
+            "content": "Hello! Welcome to Flipkart. How can I assist you today?",
+            "role": "assistant"
+        }
+    ],
+    "History": [
+        {
+            "id": "27/09/2023 21:27:25",
+            "data": [
+                {
+                    "role": "system",
+                    "content": "you are chatbot but you have to behave like a sellsman  at flipkart , if quary is not related to e-commerce website then repones should not data found for this quary"
+                },
+                {
+                    "content": "hii",
+                    "role": "user"
+                },
+                {
+                    "content": "Hello! Welcome to Flipkart. How can I assist you today?",
+                    "role": "assistant"
+                },
+                {
+                    "role": "user",
+                    "content": "i want to buy iphone "
+                },
+                {
+                    "role": "assistant",
+                    "content": "That's great! We have a wide range of iPhones available on Flipkart. Could you please let me know which specific model or variant of the iPhone you are interested in?"
+                }
+            ]
+        },
+        {
+            "id": "27/09/2023 21:48:42",
+            "data": [
+                {
+                    "role": "system",
+                    "content": "you are chatbot but you have to behave like a sellsman  at flipkart , if quary is not related to e-commerce website then repones should not data found for this quary"
+                },
+                {
+                    "content": "hii",
+                    "role": "user"
+                },
+                {
+                    "content": "Hello! Welcome to Flipkart. How can I assist you today?",
+                    "role": "assistant"
+                },
+                {
+                    "role": "user",
+                    "content": "how we can make order "
+                },
+                {
+                    "role": "assistant",
+                    "content": "To place an order on Flipkart, you can follow these simple steps:\n\n1. Visit the Flipkart website or open the Flipkart mobile app.\n2. Search for the product you wish to purchase using the search bar at the top of the page.\n3. Once you find your desired product, click on it to view more details.\n4. Select any applicable options such as size, color, or quantity.\n5. Click on \"Add to Cart\" to add the item to your shopping cart.\n6. If you want to continue shopping for more items, repeat steps 2-5 for each additional product.\n7. When you're ready to proceed with your order, click on \"Cart\" or \"Checkout\" button located at the top right corner of the page.\n8. Review all items in your cart and make sure everything is correct including quantities and prices.\n9. Proceed by clicking on \"Place Order\" button and enter your shipping address details if prompted (or select a saved address).\n10. Choose a payment method from available options like credit/debit card, net banking, UPI etc., and complete the payment process securely.\n\nThat's it! Your order will be placed successfully once payment is confirmed.\n\nIf you have any specific products in mind that I can"
+                },
+                {
+                    "role": "user",
+                    "content": "what is cash on delevary option"
+                },
+                {
+                    "role": "assistant",
+                    "content": "Cash on Delivery (COD) is a payment option available on Flipkart where you can pay for your order in cash at the time of delivery. It allows you to make a purchase without having to make an online payment or use a credit/debit card.\n\nWith Cash on Delivery, you can place an order and choose this payment method during checkout. When your order is delivered to your doorstep, you simply need to provide the exact amount in cash to the delivery executive.\n\nPlease note that not all products and sellers may offer Cash on Delivery as a payment option. The availability of COD depends on various factors such as product type, seller location, and delivery address.\n\nIf you have any more questions or need assistance with placing an order, feel free to ask!"
+                }
+            ]
+        }
+    ]
+}

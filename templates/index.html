@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+    }
+
+    main {
+        display: flex;
+        height: 100vh;
+    }
+
+    #sidebar {
+        width: 250px;
+        background-color: #2874f0;
+        color: #fff;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        font-weight: 600;
+        background-color: #fff;
+        color: #2874f0;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+    #chatContainer {
+        flex-grow: 1;
+        padding: 20px;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    #display {
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: auto;
+        height: 90%;
+        margin-bottom: 10px;
+        display: flex;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        flex-direction: column;
+        padding-bottom: 20px;
+    }
+
+    #display:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        opacity: 0.4;
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpYK9Z3N5y3U0cu76MVnneL9Y5GLeNGZ1d1NqiMGHF1AWpvM-uiPthnDOZAo1jKj24Zg') no-repeat center;
+    }
+
+    form {
+        box-shadow: #fff 0px -13px 27px 25px;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        width: 800px;
+        left: 250px;
+        bottom: 20px;
+        margin: auto;
+    }
+
+    input[type="text"] {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    input[type="submit"] {
+        padding: 10px 40px;
+        background-color: #2874f0;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #sidebar>h3 {
+        text-align: center;
+    }
+    .userChat{
+        display:flex;
+        justify-content: end;
+    }
+    .userChat>p{
+        background-color: #2874f0;
+        color: #fff;
+        font-weight: 600;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin: 10px 0px;
+    }
+    .botChat>p{
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: 600;
+        border: 2px solid #2874f0;
+        margin: 10px 0px;
+    }
+    #historyDIV>button{
+        color: #fff;
+        border: 2px solid #fff;
+        background-color: #2874f0;
+    }
+    #historyDIV>p{
+       text-align: center;
+       cursor: pointer;
+    }
+</style>
+</head>
+
+<body>
+    <main>
+        <div id="sidebar">
+            <button id="newChatBtn">New Chat</button>
+            <h3>History</h3>
+            <div id="historyDIV">
+
+            </div>
+        </div>
+        <div id="chatContainer">
+            <div id="display"></div>
+            <form id="sendRequest">
+                <input type="text" id="user_input">
+                <input type="submit" value="Send">
+            </form>
+        </div>
+    </main>
+</body>
+<script>
+    
+    let user_input = document.getElementById("user_input")
+    let display = document.getElementById("display")
+    let sendRequest = document.getElementById("sendRequest")
+    let newChatBtn=document.getElementById("newChatBtn")
+    let history_Container=document.getElementById("historyDIV")
+
+    let currentChat = []
+    sendRequest.addEventListener("submit", (e) => {
+        e.preventDefault()
+        sendChat(user_input.value)
+        user_input.value = ""
+    })
+
+    fetchCurrentChat()
+    async function fetchCurrentChat() {
+        let res = await fetch(`/currentChat`)
+        let data = await res.json();
+        currentChat=data
+        displayChat(data)
+    }
+
+    async function sendChat(value) {
+        let res = await fetch(`/chatbot`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: await JSON.stringify({ "user_input": value })
+        })
+        let data = await res.json();
+        currentChat=data
+        displayChat(data)
+    }
+
+    function displayChat(data) {
+        display.innerHTML=''
+        data.forEach(element => {
+            if (element.role !== "system") {
+                let p = document.createElement("p");
+                p.innerHTML = element.content.split("\n").join("<br />");
+                p.style.maxWidth="50%"
+                let div = document.createElement("div");
+
+                if (element.role == "user") {
+                    div.setAttribute('class',"userChat")
+                    p.style.textAlign='right'
+                } else{
+                    div.setAttribute('class',"botChat")
+                }
+                div.append(p)
+                display.append(div)
+            }
+        });
+        display.scrollTo(0, display.scrollHeight);
+    }
+
+    fetchHistory()
+    async function fetchHistory(params) {
+        let res = await fetch(`/history`)
+        let data = await res.json();
+        console.log(data)
+        if(data.length > 0) {
+            displayHistory(data)
+        }
+    }
+
+    function  displayHistory(data){
+        history_Container.innerHTML=''
+        let current=document.createElement('button')
+        current.innerText='Current Chat'
+        current.addEventListener('click',()=>{
+            displayChat(currentChat)
+        })
+
+        history_Container.append(current)
+
+        data.forEach(element => {
+            let p= document.createElement('p')
+            p.textContent = element.id
+            p.addEventListener('click',()=>{
+                displayChat(element.data)
+            })
+            history_Container.append(p)
+        });
+    }
+
+    newChatBtn.addEventListener('click',async ()=>{
+        let res = await fetch(`/newChat`)
+        fetchCurrentChat()
+        fetchHistory()
+    })
+
+</script>
+
+</html>
