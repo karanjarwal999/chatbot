@@ -8,7 +8,7 @@ from datetime import datetime
 # datetime object containing current date and time
 now = datetime.now()
 
-openai.api_key = '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'
+openai.api_key = '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'
 
 def load_data():
     with open('data.json', 'r') as file:
@@ -50,7 +50,7 @@ def newChat_route():
         History.append({"id":id,"data":current})
         current=[  
             {"role": "system",
-                "content": "you are chatbot but you have to behave like a sellsman  at flipkart , if quary is not related to e-commerce website then repones should not data found for this quary"},
+                "content": "you are chatbot but you have to behave like a sellsman  at flipkart , if quary is not related to e-commerce website then repones appropriate"},
             {"content": 'hii', "role": 'user'}, 
             {"content": 'Hello! Welcome to Flipkart. How can I assist you today?', "role": 'assistant'}
         ]
